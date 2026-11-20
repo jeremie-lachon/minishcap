@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   heredocarg.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: snek <snek@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/22 17:35:33 by jla-chon          #+#    #+#             */
-/*   Updated: 2024/11/26 20:45:22 by snek             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 static void	limitsetter2(t_list *lst, char *str)
@@ -48,14 +36,14 @@ static char	*limitsetter(t_list *lst, int i, t_list *tmp)
 	{
 		node = (t_subquote *)lst->data;
 		if (node->check)
-			i += ft_strlen(node->str) - 2;
+			i += ms_strlen(node->str) - 2;
 		else
-			i += ft_strlen(node->str);
+			i += ms_strlen(node->str);
 		lst = lst->next;
 	}
-	str = ft_calloc(i + 1, sizeof(char));
+	str = ms_calloc(i + 1, sizeof(char));
 	limitsetter2(tmp, str);
-	return (ft_listfree(&tmp, subquotefree), str);
+	return (ms_listfree(&tmp, subquotefree), str);
 }
 
 char	*argument_heredoc(char *arg, t_list *lst, t_list *tmp)
@@ -73,13 +61,13 @@ char	*argument_heredoc(char *arg, t_list *lst, t_list *tmp)
 		{
 			var->str = dollarhere(var->str, !lst->next, 0, 0);
 			if (!var->str)
-				return (ft_listfree(&lst, subquotefree), NULL);
+				return (ms_listfree(&lst, subquotefree), NULL);
 		}
 		else if (*var->str == '"')
 		{
 			var->str = dollarquotehere(var->str, 0, 0);
 			if (!var->str)
-				return (ft_listfree(&lst, subquotefree), NULL);
+				return (ms_listfree(&lst, subquotefree), NULL);
 		}
 		lst = lst->next;
 	}

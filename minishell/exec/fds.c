@@ -1,18 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   fds.c                                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dakojic <dakojic@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/24 21:46:59 by snek              #+#    #+#             */
-/*   Updated: 2024/11/29 23:35:48 by dakojic          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
-int	ft_setfds(t_execs *exec)
+int	ms_setfds(t_execs *exec)
 {
 	t_list	*list;
 	t_fds	*fds;
@@ -38,7 +26,7 @@ int	ft_setfds(t_execs *exec)
 	return (0);
 }
 
-int	ft_closeallfds(t_execs *exec)
+int	ms_closeallfds(t_execs *exec)
 {
 	t_list	*lst;
 
@@ -48,7 +36,7 @@ int	ft_closeallfds(t_execs *exec)
 		close(((t_fds *)lst->data)->fd);
 		lst = lst->next;
 	}
-	ft_listfree(&exec->fds, free);
+	ms_listfree(&exec->fds, free);
 	exec->fds = 0;
 	return (0);
 }

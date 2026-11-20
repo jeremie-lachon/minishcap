@@ -1,18 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dakojic <dakojic@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/26 14:01:49 by dakojic           #+#    #+#             */
-/*   Updated: 2024/11/29 23:50:02 by dakojic          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
-static char	*ft_strdup_lex(char *src, int size)
+static char	*ms_strdup_lex(char *src, int size)
 {
 	int		i;
 	char	*new;
@@ -35,16 +23,14 @@ int	add_lex_node(t_lexer **lex, char *str, int *i)
 	t_lexer	*new;
 	int		size;
 	int		before;
-	int		check;
 
-	check = 0;
 	size = 0;
 	new = malloc(sizeof(*new));
 	before = *i;
 	if (!new)
 		return (1);
 	while (skip_quotes(str, i, &size, 1) && str[*i]
-		&& (ft_strchr(" \t\n\r\v><|()", str[*i]) == 0))
+		&& (ms_strchr(" \t\n\r\v><|()", str[*i]) == 0))
 	{
 		if (str[*i] == '&' && str[*i + 1] && str[*i + 1] == '&')
 			break ;
@@ -54,8 +40,8 @@ int	add_lex_node(t_lexer **lex, char *str, int *i)
 	new->type = LEX_WORD;
 	new->next = NULL;
 	new->prev = NULL;
-	new->heredoc = ft_strdup_lex(str + before, size);
-	ft_lstadd_back(lex, &new);
+	new->heredoc = ms_strdup_lex(str + before, size);
+	ms_lstadd_back(lex, &new);
 	return (0);
 }
 
@@ -63,11 +49,11 @@ int	add_ending_node(t_lexer **lexer)
 {
 	t_lexer	*new;
 
-	new = ft_calloc(sizeof(*new), 1);
+	new = ms_calloc(sizeof(*new), 1);
 	if (!new)
 		return (1);
 	new->type = LEX_END;
-	ft_lstadd_back(lexer, &new);
+	ms_lstadd_back(lexer, &new);
 	return (0);
 }
 
@@ -75,22 +61,22 @@ int	process_lexer(char *str, t_lexer **lexer, int *i)
 {
 	while (str[*i])
 	{
-		while (str[*i] && ft_strchr(" \t\n\r\v", str[*i]))
+		while (str[*i] && ms_strchr(" \t\n\r\v", str[*i]))
 			(*i)++;
-		if (skip_quotes(str, i, 0, 0) && str[*i] && ft_strchr("><|&()",
+		if (skip_quotes(str, i, 0, 0) && str[*i] && ms_strchr("><|&()",
 				str[*i]))
 		{
 			if (str[*i] == '&')
 			{
 				if (and_return(lexer, str, i))
-					return (ft_printerror("Error : Malloc and_return (failed",
+					return (ms_printerror("Error : Malloc and_return (failed",
 							0, 0), 1);
 				continue ;
 			}
 			else
 				sub_lexer(lexer, str, i);
 		}
-		if (str[*i] && !ft_strchr(" \t\n\r\v><|&()", str[*i]))
+		if (str[*i] && !ms_strchr(" \t\n\r\v><|&()", str[*i]))
 		{
 			if (add_lex_node(lexer, str, i))
 				return (1);
@@ -105,7 +91,7 @@ int	lexer(t_shell **shell, char *str)
 	t_lexer	*lexer;
 
 	i = 0;
-	lexer = ft_calloc(sizeof(*lexer), 1);
+	lexer = ms_calloc(sizeof(*lexer), 1);
 	if (!lexer)
 		return (1);
 	if (process_lexer(str, &lexer, &i))

@@ -1,18 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   moded_libft.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: snek <snek@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/17 11:11:30 by dakojic           #+#    #+#             */
-/*   Updated: 2024/11/30 02:31:57 by snek             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
-void	ft_strcpy_quoteless(char **dest, char *src)
+void	ms_strcpy_quoteless(char **dest, char *src)
 {
 	char	*temp;
 
@@ -29,7 +17,7 @@ void	ft_strcpy_quoteless(char **dest, char *src)
 	*temp = '\0';
 }
 
-int	ft_strcmp2(const char *s1, const char *s2)
+int	ms_strcmp2(const char *s1, const char *s2)
 {
 	unsigned char	*s3;
 	unsigned char	*s4;
@@ -49,13 +37,13 @@ int	ft_strcmp2(const char *s1, const char *s2)
 void	miniprint(char *str, int i)
 {
 	if (!i)
-		ft_printerror("minishell: ", str, ": command not found");
+		ms_printerror("minishell: ", str, ": command not found");
 	else if (i == 1)
-		ft_printerror("minishell: ", str, ": Is a directory");
+		ms_printerror("minishell: ", str, ": Is a directory");
 	else if (i == 2)
-		ft_printerror("minishell: ", str, ": no such file or directory");
+		ms_printerror("minishell: ", str, ": no such file or directory");
 	else
-		ft_printerror("minishell: ", str, ": permission denied");
+		ms_printerror("minishell: ", str, ": permission denied");
 }
 
 // int size_pwd(char **env)
@@ -65,11 +53,11 @@ void	miniprint(char *str, int i)
 //     i = 0;
 //     while(env[i])
 //     {
-//         if(!ft_strcmp2(env[i], "PWD"))
+//         if(!ms_strcmp2(env[i], "PWD"))
 //             break;
 //         i++;
 //     }
-//     return (ft_strlen(env[i]));
+//     return (ms_strlen(env[i]));
 // }
 
 int	arrayfree(char ***array)

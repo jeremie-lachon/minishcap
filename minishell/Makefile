@@ -16,24 +16,24 @@ DIR_ARG = argument/
 
 DIR_EXEC = exec/
 
-SRC_BUILT = ft_cd.c ft_cd2.c ft_echo.c ft_env.c ft_export.c ft_pwd.c ft_unset.c ft_exit.c builtin.c
+SRC_BUILT = ms_cd.c ms_cd2.c ms_echo.c ms_env.c ms_export.c ms_pwd.c ms_unset.c ms_exit.c builtin.c
 
-SRC_LIB = ft_atoi.c ft_split.c ft_strdup.c ft_strncmp.c ft_strtrim.c \
-	ft_substr.c libft.c misc.c moded_libft.c ft_strcat.c ft_strcmp.c \
-	ft_substr.c signal.c ft_write.c ft_isalphanum.c libft2.c misc2.c
+SRC_LIB = ms_atoi.c ms_split.c ms_strdup.c ms_strncmp.c ms_strtrim.c \
+	ms_substr.c libft.c misc.c moded_libft.c ms_strcat.c ms_strcmp.c \
+	ms_substr.c signal.c ms_write.c ms_isalphanum.c libft2.c misc2.c
 
-SRC_PARSE = ft_free.c lexing_check.c tools_heredoc.c parse_redirs.c \
-	ft_memory.c ft_free2.c init_structs.c \
+SRC_PARSE = ms_free.c lexing_check.c tools_heredoc.c parse_redirs.c \
+	ms_memory.c ms_free2.c init_structs.c \
 	tools_parsing.c parsing_heredoc.c lexer.c init_redirs_er.c \
 	parsing_exec.c sub_lexer.c quotes.c \
-	init_redirs.c ft_parsing.c tools_node.c tokens.c \
-	ft_memory2.c lexer_checks.c misc.c line_savers.c\
+	init_redirs.c ms_parsing.c tools_node.c tokens.c \
+	ms_memory2.c lexer_checks.c misc.c line_savers.c\
 
 SRC_ARG = argument.c expansion.c filelist.c files.c  listfuncs.c listprinters.c \
 	structs.c substitution.c terminalstage.c wildcard.c heredocarg.c dollar.c dollarhere.c \
 	structsfree.c subquote.c
 
-SRC_EXEC = cmd.c execfree.c ft_pathsplit.c heredoc.c path.c pipe.c redir.c subandor.c fds.c mainexec.c \
+SRC_EXEC = cmd.c execfree.c ms_pathsplit.c heredoc.c path.c pipe.c redir.c subandor.c fds.c mainexec.c \
 	execfreeer.c dollarhere.c execfreeer.c
 
 SRC_MAIN = main.c printer.c

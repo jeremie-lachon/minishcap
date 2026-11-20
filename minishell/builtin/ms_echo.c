@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_echo.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: snek <snek@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/22 12:40:04 by dakojic           #+#    #+#             */
-/*   Updated: 2024/11/26 22:54:54 by snek             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 // Takes pointer to execcmd struct as arg since its the end product and frees it
@@ -34,13 +22,13 @@ static int	n_option(char **cmd, int *i, bool *arg)
 	return (0);
 }
 
-int	ft_echo(t_execs *execs)
+int	ms_echo(t_execs *execs)
 {
 	int			i;
 	bool		n_arg;
 	t_execcmd	*cmd;
 
-	if (ft_write(1, "", 0))
+	if (ms_write(1, "", 0))
 		return (333);
 	cmd = (t_execcmd *)execs->cmd;
 	i = 1;
@@ -48,13 +36,13 @@ int	ft_echo(t_execs *execs)
 	n_option(cmd->args, &i, &n_arg);
 	while (cmd->args[i])
 	{
-		write(1, cmd->args[i], ft_strlen(cmd->args[i]));
+		write(1, cmd->args[i], ms_strlen(cmd->args[i]));
 		if (cmd->args[i + 1] != 0)
-			ft_write(1, " ", 1);
+			ms_write(1, " ", 1);
 		i++;
 	}
 	if (n_arg == false || (cmd->args[1] && !cmd->args[2] && !cmd->args[1][0]))
-		ft_write(1, "\n", 1);
+		ms_write(1, "\n", 1);
 	i = 0;
 	arrayfree(&cmd->args);
 	cmd->args = 0;
@@ -72,7 +60,7 @@ int	ft_echo(t_execs *execs)
 //     cmd[2] = strdup("-n");
 //     cmd[3] = strdup("World");
 //     cmd[4] = NULL;
-//     ft_echo(&cmd);
-//     // ft_echo(&cmd);
+//     ms_echo(&cmd);
+//     // ms_echo(&cmd);
 //     return (0);
 // }

@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   tools_parsing.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dakojic <dakojic@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/26 13:19:07 by dakojic           #+#    #+#             */
-/*   Updated: 2024/11/25 18:27:43 by dakojic          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 int	lfsymbol(char **ptr, char *c)
@@ -17,10 +5,10 @@ int	lfsymbol(char **ptr, char *c)
 	char	*temp;
 
 	temp = *ptr;
-	while (*temp && ft_strchr(" \t\n\r\v", *temp))
+	while (*temp && ms_strchr(" \t\n\r\v", *temp))
 		temp++;
 	*ptr = temp;
-	return (*ptr && ft_strchr(c, *temp));
+	return (*ptr && ms_strchr(c, *temp));
 }
 
 int	lfsymbol2(char **ptr, char *c)
@@ -28,8 +16,8 @@ int	lfsymbol2(char **ptr, char *c)
 	char	*temp;
 
 	temp = *ptr;
-	while (*temp && ft_strchr(" \t\n\r\v", *temp))
+	while (*temp && ms_strchr(" \t\n\r\v", *temp))
 		temp++;
 	*ptr = temp;
-	return (*ptr && ft_strchr(c, *temp) && ft_strchr(c, *(temp + 1)));
+	return (*ptr && ms_strchr(c, *temp) && ms_strchr(c, *(temp + 1)));
 }

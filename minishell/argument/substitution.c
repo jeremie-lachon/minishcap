@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   substitution.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: snek <snek@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/12 14:56:27 by jla-chon          #+#    #+#             */
-/*   Updated: 2024/11/30 02:35:37 by snek             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 void	substitution_error(char *str)
@@ -30,10 +18,10 @@ void	substitution_error(char *str)
 			&& tmp[size] != '"')
 			size++;
 	}
-	tmp = ft_substr(str, 0, size + 2);
+	tmp = ms_substr(str, 0, size + 2);
 	if (!tmp)
 		return ;
-	ft_printerror("minishell: ", tmp, ": bad substitution");
+	ms_printerror("minishell: ", tmp, ": bad substitution");
 	free(tmp);
 }
 
@@ -51,7 +39,7 @@ static char	*untilnonalpha(char **str, t_execs *exec)
 		tmp++;
 	if (check && (*tmp != '}' || *str + 2 == tmp))
 		return (0);
-	final = ft_substr(*str, 1 + check, tmp - *str - 1 - check);
+	final = ms_substr(*str, 1 + check, tmp - *str - 1 - check);
 	if (!final)
 		return (0);
 	*str = tmp + check;
@@ -61,7 +49,7 @@ static char	*untilnonalpha(char **str, t_execs *exec)
 		tmp = get_env(final, exec->shell->env);
 	free(final);
 	if (!tmp)
-		return (ft_calloc(sizeof(char), 1));
+		return (ms_calloc(sizeof(char), 1));
 	return (tmp);
 }
 
@@ -73,22 +61,22 @@ static void	inc(char **str, int inc)
 char	*getdollar(char **str, int final, t_execs *exec)
 {
 	if (!*(*str + 1) && !final)
-		return (inc(str, 1), ft_calloc(1, sizeof(char)));
-	else if ((!*(*str + 1) && final) || (!ft_isalphanum(*(*str + 1))
+		return (inc(str, 1), ms_calloc(1, sizeof(char)));
+	else if ((!*(*str + 1) && final) || (!ms_isalphanum(*(*str + 1))
 			&& *(*str + 1) != '{' && *(*str + 1) != '?'))
 	{
 		*str += 1;
 		if (*((*str)++) == '$')
-			return (ft_strdup("$$"));
-		return (inc(str, -1), ft_strdup("$"));
+			return (ms_strdup("$$"));
+		return (inc(str, -1), ms_strdup("$"));
 	}
-	else if (!ft_strncmp((*str + 1), "{?", 2))
+	else if (!ms_strncmp((*str + 1), "{?", 2))
 	{
 		if (*(*str + 3) != '}')
 			return (0);
-		return (inc(str, 4), ft_itoa(exec->ret));
+		return (inc(str, 4), ms_itoa(exec->ret));
 	}
 	else if (*(*str + 1) == '?')
-		return (inc(str, 2), ft_itoa(exec->ret));
+		return (inc(str, 2), ms_itoa(exec->ret));
 	return (untilnonalpha(str, exec));
 }

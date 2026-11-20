@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   heredoc.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dakojic <dakojic@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/15 17:05:04 by jla-chon          #+#    #+#             */
-/*   Updated: 2024/11/30 00:39:55 by dakojic          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 static void	writetofd(char *str, t_list **list, int fd, int check)
@@ -22,14 +10,14 @@ static void	writetofd(char *str, t_list **list, int fd, int check)
 	j = i;
 	if (check)
 	{
-		write(fd, str, ft_strlen(str));
+		write(fd, str, ms_strlen(str));
 		return ;
 	}
 	while (str[i])
 	{
-		tmp = ft_strchrreal(str + i, '$');
+		tmp = ms_strchrreal(str + i, '$');
 		if (!tmp)
-			tmp = ft_strchrreal(str + i, '\0');
+			tmp = ms_strchrreal(str + i, '\0');
 		i += (tmp - (str + i));
 		write(fd, str + j, i - j);
 		if (str[i] == '$')
@@ -75,11 +63,11 @@ static int	getsize(char *str, t_execs *exec, t_list **list)
 		{
 			tmp = getdollarherehere(str, &i, exec);
 			if (!tmp)
-				return (ft_listfree(list, free), ft_printerror("minishell: ",
+				return (ms_listfree(list, free), ms_printerror("minishell: ",
 						str, ": bad substitution"), -1);
 			if (!listaddback(list, listnew(tmp, free), free))
 				return (-1);
-			size += ft_strlen(tmp);
+			size += ms_strlen(tmp);
 		}
 		else
 		{
@@ -100,7 +88,7 @@ int	heredoccer(char *heredoc, int check, t_execs *exec, char **filename)
 
 	list = 0;
 	if (check)
-		size = ft_strlen(heredoc);
+		size = ms_strlen(heredoc);
 	else
 		size = getsize(heredoc, exec, &list);
 	node = list;
@@ -109,16 +97,16 @@ int	heredoccer(char *heredoc, int check, t_execs *exec, char **filename)
 	if (size > PIPE_SIZE)
 	{
 		tmp = malloc(1);
-		*filename = ft_itoul((unsigned long)tmp);
+		*filename = ms_itoul((unsigned long)tmp);
 		free(tmp);
 	}
 	else
 		*filename = 0;
 	fd = heredocforp(heredoc, &list, check, *filename);
-	return (ft_listfree(&node, free), fd);
+	return (ms_listfree(&node, free), fd);
 }
 
-int	ft_here(t_execs *exec, int err, t_redircmd *cmds)
+int	ms_here(t_execs *exec, int err, t_redircmd *cmds)
 {
 	t_list		*fds;
 	int			fd;
@@ -133,7 +121,7 @@ int	ft_here(t_execs *exec, int err, t_redircmd *cmds)
 	fds = listnew(fdsnew(fd, FD_FILEIN), fdsfree);
 	if (!listaddback(&exec->fds, fds, fdsfree))
 		return (execfree(exec), 1);
-	err = ft_sorter(exec, cmds->cmd);
-	ft_removefd(fds, exec);
+	err = ms_sorter(exec, cmds->cmd);
+	ms_removefd(fds, exec);
 	return (err);
 }

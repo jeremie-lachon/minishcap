@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   pipe.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: snek <snek@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/29 17:57:22 by jla-chon          #+#    #+#             */
-/*   Updated: 2024/11/30 02:28:56 by snek             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 static void	catcher_sigquit(int signum)
@@ -18,7 +6,7 @@ static void	catcher_sigquit(int signum)
 		g_bigsignal = SIGQUIT;
 }
 
-static void	ft_pipe2(t_execs *exec, int fd[3], t_pipecmd *cmds, t_list *fds)
+static void	ms_pipe2(t_execs *exec, int fd[3], t_pipecmd *cmds, t_list *fds)
 {
 	t_fds	*tmp;
 	t_shell	*shell;
@@ -32,9 +20,9 @@ static void	ft_pipe2(t_execs *exec, int fd[3], t_pipecmd *cmds, t_list *fds)
 	buff = exec->buff;
 	tmp->fd = fd[1];
 	tmp->type = FD_FILEOUT;
-	if (ft_expandcmd(exec, cmds->left))
+	if (ms_expandcmd(exec, cmds->left))
 		exit_execfree(exec, 1);
-	err = ft_sorter(exec, cmds->left);
+	err = ms_sorter(exec, cmds->left);
 	if (err != 1)
 		execfree(exec);
 	free(buff);
@@ -55,7 +43,7 @@ static int	ispipe(t_execs *exec, t_cmd *cmds)
 	return (0);
 }
 
-static int	ft_lastpipe(t_execs *exec, t_pipecmd *cmds, int fd[4], t_list *fds)
+static int	ms_lastpipe(t_execs *exec, t_pipecmd *cmds, int fd[4], t_list *fds)
 {
 	int	err;
 
@@ -63,9 +51,9 @@ static int	ft_lastpipe(t_execs *exec, t_pipecmd *cmds, int fd[4], t_list *fds)
 	fd[3] = fork();
 	if (!fd[3])
 	{
-		if (ft_expandcmd(exec, cmds->right))
+		if (ms_expandcmd(exec, cmds->right))
 			exit_execfree(exec, 1);
-		err = ft_sorter(exec, cmds->right);
+		err = ms_sorter(exec, cmds->right);
 		close(fd[0]);
 		waitpid(fd[2], &fd[2], 0);
 		if (err == 333)
@@ -75,12 +63,12 @@ static int	ft_lastpipe(t_execs *exec, t_pipecmd *cmds, int fd[4], t_list *fds)
 	close(fd[0]);
 	waitpid(fd[2], NULL, 0);
 	waitpid(fd[3], &err, 0);
-	ft_removefd(fds, exec);
-	err = ft_exec3(err);
+	ms_removefd(fds, exec);
+	err = ms_exec3(err);
 	return (err);
 }
 
-int	ft_pipe(t_execs *exec, int err, t_pipecmd *cmds)
+int	ms_pipe(t_execs *exec, int err, t_pipecmd *cmds)
 {
 	int			fd[4];
 	t_list		*fds;
@@ -95,15 +83,15 @@ int	ft_pipe(t_execs *exec, int err, t_pipecmd *cmds)
 	tmp = fds->data;
 	fd[2] = fork();
 	if (!fd[2])
-		ft_pipe2(exec, fd, cmds, fds);
+		ms_pipe2(exec, fd, cmds, fds);
 	close(fd[1]);
 	tmp->fd = fd[0];
 	tmp->type = FD_FILEIN;
 	if (!ispipe(exec, cmds->right))
-		return (ft_lastpipe(exec, cmds, fd, fds));
-	err = ft_sorter(exec, cmds->right);
+		return (ms_lastpipe(exec, cmds, fd, fds));
+	err = ms_sorter(exec, cmds->right);
 	close(fd[0]);
 	waitpid(fd[2], &fd[2], 0);
-	ft_removefd(fds, exec);
+	ms_removefd(fds, exec);
 	return (err);
 }

@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   lexer_checks.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dakojic <dakojic@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/03 10:35:55 by dakojic           #+#    #+#             */
-/*   Updated: 2024/12/02 12:58:54 by dakojic          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 int	prev_check(t_lexer *lex, char *str)
@@ -57,7 +45,7 @@ int	first_type_check(t_lexer *lex)
 {
 	if (lex->type != LEX_START)
 	{
-		ft_printerror("Minishell: syntax error near unexpected token\
+		ms_printerror("Minishell: syntax error near unexpected token\
 `newline'", 0, 0);
 		return (1);
 	}

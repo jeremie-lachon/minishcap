@@ -1,18 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   libft.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dakojic <dakojic@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/26 13:20:17 by dakojic           #+#    #+#             */
-/*   Updated: 2024/11/28 13:28:05 by dakojic          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
-char	*ft_strchrreal(char *s, char c)
+char	*ms_strchrreal(char *s, char c)
 {
 	while (*s)
 	{
@@ -25,7 +13,7 @@ char	*ft_strchrreal(char *s, char c)
 	return (0);
 }
 
-char	*ft_strchr2(char *s, char c)
+char	*ms_strchr2(char *s, char c)
 {
 	int	i;
 
@@ -44,13 +32,13 @@ char	*ft_strchr2(char *s, char c)
 	return (0);
 }
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t size)
+size_t	ms_strlcpy(char *dst, const char *src, size_t size)
 {
 	size_t	i;
 	size_t	len;
 
 	i = 0;
-	len = ft_strlen (src);
+	len = ms_strlen (src);
 	if (size <= 0 || !(dst))
 		return (len);
 	while (i < len && i < size - 1)
@@ -59,7 +47,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 	return (len);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ms_strjoin(char const *s1, char const *s2)
 {
 	size_t	len;
 	size_t	cur;
@@ -70,7 +58,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	i = 0;
 	if (!s1 || !s2)
 		return (NULL);
-	len = ft_strlen(s1) + ft_strlen(s2);
+	len = ms_strlen(s1) + ms_strlen(s2);
 	new = (char *)malloc(sizeof (char) * len + 1);
 	if (!new)
 		return (NULL);

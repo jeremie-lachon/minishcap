@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dakojic <dakojic@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/26 12:19:09 by dakojic           #+#    #+#             */
-/*   Updated: 2024/09/26 12:20:01 by dakojic          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 static int	wdcount(const char *str, char c, int *tab, int check)
@@ -92,7 +80,7 @@ static int	real_split(char **copy, const char *str, int *i, char c)
 	return (0);
 }
 
-char	**ft_split(char const *str, char c)
+char	**ms_split(char const *str, char c)
 {
 	int		i;
 	char	**copy;

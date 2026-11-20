@@ -1,22 +1,10 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   subquote.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: snek <snek@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/25 18:25:24 by snek              #+#    #+#             */
-/*   Updated: 2024/11/25 18:27:38 by snek             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 static int	unquoted_aux(char **res, char *str, t_list **new, int check)
 {
 	if (!str)
-		return (free(*res), ft_listfree(new, subquotefree), 0);
-	*res = ft_strcatter(*res, str);
+		return (free(*res), ms_listfree(new, subquotefree), 0);
+	*res = ms_strcatter(*res, str);
 	free(str);
 	if (new)
 	{
@@ -30,11 +18,11 @@ static int	unquoted_aux(char **res, char *str, t_list **new, int check)
 
 static int	sub_unquoted2(int k[3], char **res, char *str, t_list **quote)
 {
-	if (!unquoted_aux(res, ft_substr(str, k[1], k[0] - k[1]), 0, 0))
+	if (!unquoted_aux(res, ms_substr(str, k[1], k[0] - k[1]), 0, 0))
 		return (1);
 	k[1] = k[0] + 1;
 	k[0] = ((int *)(*quote)->data)[1];
-	if (!unquoted_aux(res, ft_substr(str, k[1], k[0] - k[1]), 0, 0))
+	if (!unquoted_aux(res, ms_substr(str, k[1], k[0] - k[1]), 0, 0))
 		return (1);
 	k[1] = k[0] + 1;
 	*quote = (*quote)->next;
@@ -47,13 +35,13 @@ static int	sub_unquoted3(int k[3], char **res, char *str, t_list **new)
 	{
 		if (k[0] != k[2])
 		{
-			if (!unquoted_aux(res, ft_substr(str, k[1], k[0] - k[1]), new, 0))
+			if (!unquoted_aux(res, ms_substr(str, k[1], k[0] - k[1]), new, 0))
 				return (1);
 		}
 		k[1] = k[0];
 		while (str[k[0]] == '*')
 			k[0]++;
-		if (!unquoted_aux(res, ft_substr(str, k[1], k[0] - k[1]), new, 1))
+		if (!unquoted_aux(res, ms_substr(str, k[1], k[0] - k[1]), new, 1))
 			return (1);
 		k[1] = k[0];
 	}
@@ -84,7 +72,7 @@ t_list	*sub_unquoted(char *str, t_list **quote, int *index, char *res)
 				return (0);
 		}
 	}
-	if (!unquoted_aux(&res, ft_substr(str, k[1], k[0] - k[1]), &new, 0))
+	if (!unquoted_aux(&res, ms_substr(str, k[1], k[0] - k[1]), &new, 0))
 		return (0);
 	*index = k[0];
 	return (new);

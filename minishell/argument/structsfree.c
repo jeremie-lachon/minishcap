@@ -1,31 +1,19 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   structsfree.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dakojic <dakojic@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/25 18:07:53 by snek              #+#    #+#             */
-/*   Updated: 2024/11/29 23:32:40 by dakojic          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
-void	subquotefree(t_subquote *data)
+void	subquotefree(void *data)
 {
-	free(data->str);
+	free(((t_subquote *)data)->str);
 	free(data);
 }
 
-void	filefree(t_file *data)
+void	filefree(void *data)
 {
-	free(data->filename);
+	free(((t_file *)data)->filename);
 	free(data);
 }
 
-void	fdsfree(t_fds *fds)
+void	fdsfree(void *data)
 {
-	close(fds->fd);
-	free(fds);
+	close(((t_fds *)data)->fd);
+	free(data);
 }

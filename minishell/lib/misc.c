@@ -1,18 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   misc.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dakojic <dakojic@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/12 15:57:43 by jla-chon          #+#    #+#             */
-/*   Updated: 2024/11/28 13:08:54 by dakojic          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
-char	*ft_strcatter(char *str1, char *str2)
+char	*ms_strcatter(char *str1, char *str2)
 {
 	char	*final;
 	int		size;
@@ -24,13 +12,13 @@ char	*ft_strcatter(char *str1, char *str2)
 	size = 0;
 	if (!str2)
 	{
-		final = ft_strdup(str1);
+		final = ms_strdup(str1);
 		return (free(str1), final);
 	}
 	if (str1)
-		size = ft_strlen(str1);
-	size += ft_strlen(str2);
-	final = ft_calloc(sizeof(char), size + 1);
+		size = ms_strlen(str1);
+	size += ms_strlen(str2);
+	final = ms_calloc(sizeof(char), size + 1);
 	if (!final)
 		return (free(str1), NULL);
 	while (str1 && str1[i])
@@ -41,7 +29,7 @@ char	*ft_strcatter(char *str1, char *str2)
 	return (free(str1), final);
 }
 
-char	*ft_strstr(char *haystack, char *needle)
+char	*ms_strstr(char *haystack, char *needle)
 {
 	int	i;
 	int	j;
@@ -66,7 +54,7 @@ char	*ft_strstr(char *haystack, char *needle)
 	return (haystack + i);
 }
 
-static int	ft_itoa_aux(long num)
+static int	ms_itoa_aux(long num)
 {
 	int	size;
 
@@ -84,19 +72,19 @@ static int	ft_itoa_aux(long num)
 	return (size);
 }
 
-char	*ft_itoa(int num)
+char	*ms_itoa(int num)
 {
 	char	*res;
 	long	lnum;
 	int		size;
 
 	if (num == 0)
-		return (ft_strdup("0"));
+		return (ms_strdup("0"));
 	if (num == 333)
 		num = 1;
 	lnum = num;
-	size = ft_itoa_aux(lnum);
-	res = ft_calloc(sizeof(char), size-- + 1);
+	size = ms_itoa_aux(lnum);
+	res = ms_calloc(sizeof(char), size-- + 1);
 	if (!res)
 		return (0);
 	if (num < 0)
@@ -112,14 +100,14 @@ char	*ft_itoa(int num)
 	return (res);
 }
 
-char	*ft_itoul(unsigned long num)
+char	*ms_itoul(unsigned long num)
 {
 	char			*res;
 	int				size;
 	unsigned long	tmp;
 
 	if (num == 0)
-		return (ft_strdup("0"));
+		return (ms_strdup("0"));
 	tmp = num;
 	size = 0;
 	while (num != 0)
@@ -127,7 +115,7 @@ char	*ft_itoul(unsigned long num)
 		num /= 10;
 		size++;
 	}
-	res = ft_calloc(sizeof(char), size-- + 1);
+	res = ms_calloc(sizeof(char), size-- + 1);
 	if (!res)
 		return (0);
 	num = tmp;

@@ -1,22 +1,10 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   init_structs.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dakojic <dakojic@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/26 13:25:03 by dakojic           #+#    #+#             */
-/*   Updated: 2024/11/25 18:26:13 by dakojic          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 t_cmd	*execcmd(void)
 {
 	t_execcmd	*cmd;
 
-	cmd = ft_calloc(1, sizeof(t_execcmd));
+	cmd = ms_calloc(1, sizeof(t_execcmd));
 	if (!cmd)
 		return (NULL);
 	cmd->type = EXEC;
@@ -27,7 +15,7 @@ t_cmd	*pipecmd(t_cmd *left, t_cmd *right)
 {
 	t_pipecmd	*cmd;
 
-	cmd = ft_calloc(1, sizeof(t_pipecmd));
+	cmd = ms_calloc(1, sizeof(t_pipecmd));
 	if (!cmd)
 		return (NULL);
 	cmd->type = PIPE;
@@ -40,7 +28,7 @@ t_cmd	*andcmd(t_cmd *left, t_cmd *right)
 {
 	t_andcmd	*cmd;
 
-	cmd = ft_calloc(1, sizeof(t_andcmd));
+	cmd = ms_calloc(1, sizeof(t_andcmd));
 	if (!cmd)
 		return (NULL);
 	cmd->type = AND;
@@ -53,7 +41,7 @@ t_cmd	*orcmd(t_cmd *left, t_cmd *right)
 {
 	t_orcmd	*cmd;
 
-	cmd = ft_calloc(1, sizeof(t_orcmd));
+	cmd = ms_calloc(1, sizeof(t_orcmd));
 	if (!cmd)
 		return (NULL);
 	cmd->type = OR;

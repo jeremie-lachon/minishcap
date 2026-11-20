@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   expansion.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: snek <snek@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/12 14:57:13 by jla-chon          #+#    #+#             */
-/*   Updated: 2024/11/27 20:21:43 by snek             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 static char	*findnextquote(char *str)
@@ -18,13 +6,13 @@ static char	*findnextquote(char *str)
 	char	*squote;
 
 	if (*str == '"' || *str == '\'')
-		return (ft_strchrreal(str + 1, *str) + 1);
-	dquote = ft_strchrreal(str, '"');
-	squote = ft_strchrreal(str, '\'');
+		return (ms_strchrreal(str + 1, *str) + 1);
+	dquote = ms_strchrreal(str, '"');
+	squote = ms_strchrreal(str, '\'');
 	if (!dquote)
 	{
 		if (!squote)
-			return (ft_strchrreal(str, '\0'));
+			return (ms_strchrreal(str, '\0'));
 		return (squote);
 	}
 	else if (!squote)
@@ -38,9 +26,9 @@ int	nodeadder(t_list **lst, char *str1, char **str2, int check)
 {
 	char	*tmp;
 
-	tmp = ft_substr(*str2, 0, (size_t)(str1 - *str2));
+	tmp = ms_substr(*str2, 0, (size_t)(str1 - *str2));
 	if (!tmp)
-		return (free(tmp), ft_listfree(lst, subquotefree), 1);
+		return (free(tmp), ms_listfree(lst, subquotefree), 1);
 	*str2 = str1;
 	if (!listaddback(lst, listnew(subquotenew(tmp, check), subquotefree),
 			subquotefree))

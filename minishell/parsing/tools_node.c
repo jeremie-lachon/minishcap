@@ -1,18 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   tools_node.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dakojic <dakojic@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/26 13:59:48 by dakojic           #+#    #+#             */
-/*   Updated: 2024/11/25 18:27:41 by dakojic          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
-t_lexer	*ft_lstlast(t_lexer *lst)
+t_lexer	*ms_lstlast(t_lexer *lst)
 {
 	if (!lst)
 		return (0);
@@ -21,7 +9,7 @@ t_lexer	*ft_lstlast(t_lexer *lst)
 	return (lst);
 }
 
-void	ft_lstadd_back(t_lexer **lst, t_lexer **new)
+void	ms_lstadd_back(t_lexer **lst, t_lexer **new)
 {
 	t_lexer	*temp;
 
@@ -32,13 +20,13 @@ void	ft_lstadd_back(t_lexer **lst, t_lexer **new)
 	else
 	{
 		temp = *lst;
-		temp = ft_lstlast(temp);
+		temp = ms_lstlast(temp);
 		temp->next = (*new);
 		(*new)->prev = temp;
 	}
 }
 
-void	ft_pipeaddback(t_shell **shell, t_herepipe *new)
+void	ms_pipeaddback(t_shell **shell, t_herepipe *new)
 {
 	t_herepipe	*temp;
 

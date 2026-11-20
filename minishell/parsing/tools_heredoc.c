@@ -1,18 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   tools_heredoc.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dakojic <dakojic@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/27 11:13:03 by dakojic           #+#    #+#             */
-/*   Updated: 2024/12/02 13:19:32 by dakojic          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
-static size_t	ft_strlen_heredoc(const char *str)
+static size_t	ms_strlen_heredoc(const char *str)
 {
 	size_t	i;
 
@@ -24,7 +12,7 @@ static size_t	ft_strlen_heredoc(const char *str)
 	return (i);
 }
 
-static char	*ft_strjoin_heredoc(char *s1, char const *s2)
+static char	*ms_strjoin_heredoc(char *s1, char const *s2)
 {
 	size_t	cur;
 	size_t	i;
@@ -34,9 +22,9 @@ static char	*ft_strjoin_heredoc(char *s1, char const *s2)
 	if (!s2)
 		return (NULL);
 	if (!s1)
-		return (ft_calloc(sizeof(char), 1));
-	cur = ft_strlen_heredoc(s1) + ft_strlen_heredoc(s2);
-	new = ft_calloc(sizeof(char), cur + 2);
+		return (ms_calloc(sizeof(char), 1));
+	cur = ms_strlen_heredoc(s1) + ms_strlen_heredoc(s2);
+	new = ms_calloc(sizeof(char), cur + 2);
 	cur = 0;
 	if (!new)
 		return (NULL);
@@ -51,7 +39,7 @@ static char	*ft_strjoin_heredoc(char *s1, char const *s2)
 	return (free(s1), new);
 }
 
-static int	ft_strcmphere(const char *s1, const char *s2)
+static int	ms_strcmphere(const char *s1, const char *s2)
 {
 	if (!s1 || !s2)
 		return (0);
@@ -69,7 +57,7 @@ static void	printerror(char *end)
 {
 	write(2, "minishell: warning: here-document delimited \
 by end-of-file (wanted `", 68);
-	write(2, end, ft_strlen(end));
+	write(2, end, ms_strlen(end));
 	write(2, "')\n", 3);
 }
 
@@ -83,9 +71,9 @@ char	*heredoc_filler(char *end)
 	saver2(&in, &buf);
 	if (!buf)
 		return (NULL);
-	while (!heredoc || (ft_strcmphere(end, buf) != 0))
+	while (!heredoc || (ms_strcmphere(end, buf) != 0))
 	{
-		heredoc = ft_strjoin_heredoc(heredoc, buf);
+		heredoc = ms_strjoin_heredoc(heredoc, buf);
 		free(buf);
 		buf = readline("> ");
 		if (g_bigsignal == SIGINT)

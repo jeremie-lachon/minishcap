@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   sub_lexer.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dakojic <dakojic@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/27 10:37:20 by dakojic           #+#    #+#             */
-/*   Updated: 2024/11/25 18:33:51 by dakojic          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 static int	*type_setter(int f, int s)
@@ -43,12 +31,12 @@ int	and_return(t_lexer **lexer, char *str, int *i)
 
 	if (str[*i + 1] == '&')
 	{
-		new = ft_calloc(sizeof(*new), 1);
+		new = ms_calloc(sizeof(*new), 1);
 		if (!new)
 			return (1);
 		new->type = LEX_AND;
 		*i += 2;
-		return (ft_lstadd_back(lexer, &new), 0);
+		return (ms_lstadd_back(lexer, &new), 0);
 	}
 	else
 	{
@@ -61,7 +49,7 @@ int	sub_lexer(t_lexer **lex, char *str, int *i)
 {
 	t_lexer	*new;
 
-	new = ft_calloc(sizeof(*new), 1);
+	new = ms_calloc(sizeof(*new), 1);
 	if (!new)
 		return (1);
 	if (str[*i] == '>')
@@ -77,5 +65,5 @@ int	sub_lexer(t_lexer **lex, char *str, int *i)
 	else if (str[*i] == '|')
 		new->type = type_return(type_setter(LEX_PIPE, LEX_OR), '|', str, i);
 	(*i)++;
-	return (ft_lstadd_back(lex, &new), 0);
+	return (ms_lstadd_back(lex, &new), 0);
 }

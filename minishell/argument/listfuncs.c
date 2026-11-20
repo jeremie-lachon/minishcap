@@ -1,24 +1,12 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   listfuncs.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dakojic <dakojic@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/12 14:39:51 by jla-chon          #+#    #+#             */
-/*   Updated: 2024/11/29 21:08:32 by dakojic          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
-t_list	*listnew(void *data, void (*f)())
+t_list	*listnew(void *data, void (*f)(void *))
 {
 	t_list	*new;
 
 	if (!data)
 		return (0);
-	new = ft_calloc(sizeof(t_list), 1);
+	new = ms_calloc(sizeof(t_list), 1);
 	if (!new)
 		return (f(data), NULL);
 	new->next = 0;
@@ -26,12 +14,12 @@ t_list	*listnew(void *data, void (*f)())
 	return (new);
 }
 
-t_list	*listaddback(t_list **lst, t_list *new, void (*f)())
+t_list	*listaddback(t_list **lst, t_list *new, void (*f)(void *))
 {
 	t_list	*tmp;
 
 	if (!new)
-		return (ft_listfree(lst, f), NULL);
+		return (ms_listfree(lst, f), NULL);
 	if (!*lst)
 		*lst = new;
 	else
@@ -57,12 +45,12 @@ int	listsize(t_list *list)
 	return (size);
 }
 
-int	ft_listfree(t_list **lst, void (*f)())
+int	ms_listfree(t_list **lst, void (*f)(void *))
 {
 	if (!*lst)
 		return (1);
 	if ((*lst)->next)
-		ft_listfree(&(*lst)->next, f);
+		ms_listfree(&(*lst)->next, f);
 	f((*lst)->data);
 	free(*lst);
 	*lst = 0;

@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dakojic <dakojic@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/12 14:37:54 by jla-chon          #+#    #+#             */
-/*   Updated: 2024/12/02 15:11:18 by dakojic          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -189,65 +177,65 @@ int						heredoccer(char *heredoc, int check, t_execs *exec,
 							char **filename);
 
 //	Lib and Useful Funcs
-char					*ft_substr(char const *s, unsigned int start,
+char					*ms_substr(char const *s, unsigned int start,
 							size_t len);
 int						nodeadder(t_list **lst, char *str1, char **str2,
 							int check);
-char					*ft_strjoin(char const *s1, char const *s2);
-char					*ft_strtrim(char *s1, char const *set);
+char					*ms_strjoin(char const *s1, char const *s2);
+char					*ms_strtrim(char *s1, char const *set);
 int						iswhite(char c);
-char					*ft_strcatter(char *str1, char *str2);
-char					*ft_strdup(char *str);
-char					*ft_strstr(char *haystack, char *needle);
-char					*ft_itoa(int num);
+char					*ms_strcatter(char *str1, char *str2);
+char					*ms_strdup(char *str);
+char					*ms_strstr(char *haystack, char *needle);
+char					*ms_itoa(int num);
 int						arrayfree(char ***array);
-char					**ft_pathsplit(char const *s, char c, char *bonus);
-char					*ft_itoul(unsigned long num);
-int						ft_strncmp(const char *s1, const char *s2, size_t n);
-void					*ft_memset(void *s, int c, size_t n);
-int						ft_strcmp(const char *s1, const char *s2);
-void					*ft_calloc(size_t nmemb, size_t size);
-char					*ft_strchr(char *s, char c);
-char					*ft_strchr2(char *s, char c);
-char					*ft_strchrreal(char *s, char c);
-// void					ft_bzero(void *s, size_t n);
-int						ft_strlen(const char *s);
-char					**ft_split(char const *str, char c);
-void					*ft_calloc(size_t nmemb, size_t size);
+char					**ms_pathsplit(char const *s, char c, char *bonus);
+char					*ms_itoul(unsigned long num);
+int						ms_strncmp(const char *s1, const char *s2, size_t n);
+void					*ms_memset(void *s, int c, size_t n);
+int						ms_strcmp(const char *s1, const char *s2);
+void					*ms_calloc(size_t nmemb, size_t size);
+char					*ms_strchr(char *s, char c);
+char					*ms_strchr2(char *s, char c);
+char					*ms_strchrreal(char *s, char c);
+// void					ms_bzero(void *s, size_t n);
+int						ms_strlen(const char *s);
+char					**ms_split(char const *str, char c);
+void					*ms_calloc(size_t nmemb, size_t size);
 int						lfsymbol(char **ptr, char *c);
 int						lfsymbol2(char **ptr, char *c);
-char					*ft_filecpy(char *file, char *efile);
-size_t					ft_strlcpy(char *dst, const char *src, size_t size);
-char					*ft_strcat(char *str1, char *str2);
-int						ft_isalpha(int c);
+char					*ms_filecpy(char *file, char *efile);
+size_t					ms_strlcpy(char *dst, const char *src, size_t size);
+char					*ms_strcat(char *str1, char *str2);
+int						ms_isalpha(int c);
 char					*get_env(char *name, char **env);
-int						ft_write(int fd, char *str, int size);
-int						ft_isalphanum(char chr);
+int						ms_write(int fd, char *str, int size);
+int						ms_isalphanum(char chr);
 
 // Moded LIBFT
 char					**args_malloc(int argc, char *ptr_arg, char *ptr_earg,
 							char **args);
 char					*empty_string(void);
-void					ft_strcpy_quoteless(char **dest, char *src);
-int						ft_strcmp2(const char *s1, const char *s2);
+void					ms_strcpy_quoteless(char **dest, char *src);
+int						ms_strcmp2(const char *s1, const char *s2);
 int						size_pwd(char **env);
 void					print_env(char **env);
 
 //  List Funcs
-t_list					*listnew(void *data, void (*f)());
-t_list					*listaddback(t_list **lst, t_list *new, void (*f)());
-int						ft_listfree(t_list **lst, void (*f)());
+t_list					*listnew(void *data, void (*f)(void *));
+t_list					*listaddback(t_list **lst, t_list *new, void (*f)(void *));
+int						ms_listfree(t_list **lst, void (*f)(void *));
 int						listsize(t_list *list);
-t_lexer					*ft_lstlast(t_lexer *lst);
-void					ft_lstadd_back(t_lexer **lst, t_lexer **new);
+t_lexer					*ms_lstlast(t_lexer *lst);
+void					ms_lstadd_back(t_lexer **lst, t_lexer **new);
 
 //	Struct Funcs
 t_subquote				*subquotenew(char *data, int check);
-void					subquotefree(t_subquote *data);
+void					subquotefree(void *data);
 t_file					*filenew(char *data);
-void					filefree(t_file *data);
+void					filefree(void *data);
 t_fds					*fdsnew(int fd, int type);
-void					fdsfree(t_fds *fds);
+void					fdsfree(void *data);
 int						execfree(t_execs *exec);
 void					free_array(char **s);
 void					free_args(t_execcmd *ex);
@@ -275,9 +263,9 @@ t_cmd					*execcmd(void);
 t_cmd					*pipecmd(t_cmd *left, t_cmd *right);
 t_cmd					*andcmd(t_cmd *left, t_cmd *right);
 t_cmd					*orcmd(t_cmd *left, t_cmd *right);
-void					ft_removefd(t_list *fds, t_execs *exec);
+void					ms_removefd(t_list *fds, t_execs *exec);
 int						exit_execfree(t_execs *exec, int err);
-int						ft_sorterfree(t_execs *exec, t_cmd *cmd);
+int						ms_sorterfree(t_execs *exec, t_cmd *cmd);
 
 //	Expansion
 t_list					*expansion(char *str);
@@ -312,11 +300,11 @@ void					filecheck(t_list *files, t_list *node, int mode);
 t_list					*filelist(t_list *files, t_list *list);
 
 //  Printer Funcs
-void					subquoteprint(t_subquote *data);
-void					strprint(char *data);
-void					fileprint(t_file *data);
-void					printlist(t_list *list, void (*print)());
-void					intprint(int *data);
+void					subquoteprint(void *data);
+void					strprint(void *data);
+void					fileprint(void *data);
+void					printlist(t_list *list, void (*print)(void *));
+void					intprint(void *data);
 void					print_indent(int indent);
 void					print_redircmd(t_redircmd *redir, int indent);
 void					print_execcmd(t_execcmd *exec, int indent);
@@ -325,7 +313,7 @@ void					print_andcmd(t_andcmd *and, int indent);
 void					print_orcmd(t_orcmd *or, int indent);
 void					print_doublecmd(t_doublecmd *dbl, int indent);
 void					print_subcmd(t_sub *sub, int indent);
-void					ft_printerror(char *str, char *name, char *str2);
+void					ms_printerror(char *str, char *name, char *str2);
 
 // Signal Funcs
 void					signals(void);
@@ -335,31 +323,31 @@ int						checkerr(int err);
 // Argument Func
 char					**args(char **arguments, t_execs *exec, t_list *list,
 							int i);
-int						ft_expandcmd(t_execs *exec, t_cmd *cmd);
+int						ms_expandcmd(t_execs *exec, t_cmd *cmd);
 char					*argument_heredoc(char *arg, t_list *tmp, t_list *lst);
 
 // fds
-int						ft_setfds(t_execs *exec);
-int						ft_closeallfds(t_execs *exec);
+int						ms_setfds(t_execs *exec);
+int						ms_closeallfds(t_execs *exec);
 
 // Command and Path
-char					**ft_pathsplit(char const *s, char c, char *bonus);
-int						ft_command(t_execs *ex, t_execcmd *cmd, char *com);
+char					**ms_pathsplit(char const *s, char c, char *bonus);
+int						ms_command(t_execs *ex, t_execcmd *cmd, char *com);
 void					miniprint(char *str, int i);
 
 // Exec Main Func
 int						executer(t_shell *shell, int err, char *buff);
 
 // Exec Funcs
-int						ft_sorter(t_execs *exec, t_cmd *cmd);
-int						ft_pipe(t_execs *exec, int err, t_pipecmd *cmd);
-int						ft_redir(t_execs *exec, int err, t_redircmd *cmd);
-int						ft_and(t_execs *exec, int err, t_andcmd *cmd);
-int						ft_or(t_execs *exec, int err, t_orcmd *cmd);
-int						ft_sub(t_execs *exec, int err, t_sub *cmd);
-int						ft_exec(t_execs *exec, int err, t_execcmd *cmd);
-int						ft_here(t_execs *exec, int err, t_redircmd *cmd);
-int						ft_exec3(int err);
+int						ms_sorter(t_execs *exec, t_cmd *cmd);
+int						ms_pipe(t_execs *exec, int err, t_pipecmd *cmd);
+int						ms_redir(t_execs *exec, int err, t_redircmd *cmd);
+int						ms_and(t_execs *exec, int err, t_andcmd *cmd);
+int						ms_or(t_execs *exec, int err, t_orcmd *cmd);
+int						ms_sub(t_execs *exec, int err, t_sub *cmd);
+int						ms_exec(t_execs *exec, int err, t_execcmd *cmd);
+int						ms_here(t_execs *exec, int err, t_redircmd *cmd);
+int						ms_exec3(int err);
 
 // Parsing
 
@@ -395,7 +383,7 @@ int						and_return(t_lexer **new, char *str, int *i);
 
 int						add_quote_node(t_lexer **lex, char *str, int *i,
 							char c);
-void					ft_pipeaddback(t_shell **shell, t_herepipe *new);
+void					ms_pipeaddback(t_shell **shell, t_herepipe *new);
 int						skip_quotes(char *str, int *i, int *size, int check);
 // Printer
 
@@ -414,19 +402,19 @@ void					print_cmd(void);
 
 int						isbuiltin(char *cmd);
 int						builtin(t_execs *exec);
-int						ft_cd(t_execs *execs);
-int						ft_echo(t_execs *execs);
-int						ft_env(t_execs *execs);
-int						ft_exit(t_execs *ex);
-int						ft_export(t_execs *execs);
-int						ft_pwd(t_execs *execs);
-int						ft_unset(t_execs *execs);
+int						ms_cd(t_execs *execs);
+int						ms_echo(t_execs *execs);
+int						ms_env(t_execs *execs);
+int						ms_exit(t_execs *ex);
+int						ms_export(t_execs *execs);
+int						ms_pwd(t_execs *execs);
+int						ms_unset(t_execs *execs);
 char					**new_env(char ***env, char *cmd);
 char					*minisplit(char *s, int c);
 char					**new_env(char ***env, char *cmd);
 char					*get_env_mine(char *name, char **env);
-void					ft_getcwd(char **pwd);
+void					ms_getcwd(char **pwd);
 int						move_back(char **env);
-int						ft_move(char **cmd, char **env);
-char					*ft_strjoin_free(char *s1, char const *s2);
+int						ms_move(char **cmd, char **env);
+char					*ms_strjoin_free(char *s1, char const *s2);
 #endif

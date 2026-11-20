@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   filelist.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: snek <snek@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/13 16:29:23 by jla-chon          #+#    #+#             */
-/*   Updated: 2024/11/25 17:20:10 by snek             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 static void	swap(t_list *node, t_list **list)
@@ -103,7 +91,7 @@ t_list	*filer(int check)
 	{
 		if (check || *file->d_name != '.')
 		{
-			if (!listaddback(&list, listnew(filenew(ft_strdup(file->d_name)),
+			if (!listaddback(&list, listnew(filenew(ms_strdup(file->d_name)),
 						filefree), filefree))
 				return (closedir(dir), NULL);
 		}

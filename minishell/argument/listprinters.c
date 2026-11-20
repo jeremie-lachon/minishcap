@@ -1,38 +1,27 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   listprinters.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: snek <snek@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/14 17:39:39 by jla-chon          #+#    #+#             */
-/*   Updated: 2024/11/24 23:37:05 by snek             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
-void	subquoteprint(t_subquote *data)
+void	subquoteprint(void *data)
 {
-	printf("QUOTE: %s %d\n", data->str, data->check);
+	printf("QUOTE: %s %d\n", ((t_subquote *)data)->str,
+		((t_subquote *)data)->check);
 }
 
-void	strprint(char *data)
+void	strprint(void *data)
 {
-	printf("STRING: %s\n", data);
+	printf("STRING: %s\n", (char *)data);
 }
 
-void	fileprint(t_file *data)
+void	fileprint(void *data)
 {
-	printf("FILE: %s\n", data->filename);
+	printf("FILE: %s\n", ((t_file *)data)->filename);
 }
 
-void	intprint(int *data)
+void	intprint(void *data)
 {
-	printf("INTS: %d %d\n", data[0], data[1]);
+	printf("INTS: %d %d\n", ((int *)data)[0], ((int *)data)[1]);
 }
 
-void	printlist(t_list *list, void (*print)())
+void	printlist(t_list *list, void (*print)(void *))
 {
 	while (list)
 	{

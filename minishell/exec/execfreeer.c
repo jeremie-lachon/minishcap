@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   execfreeer.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: snek <snek@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/25 19:00:09 by snek              #+#    #+#             */
-/*   Updated: 2024/11/25 19:00:17 by snek             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 int	execfree(t_execs *exec)
@@ -23,8 +11,8 @@ int	execfree(t_execs *exec)
 	dup2(exec->stdcopies[1], 1);
 	close(exec->stdcopies[0]);
 	close(exec->stdcopies[1]);
-	ft_listfree(&exec->fds, fdsfree);
-	ft_sorterfree(exec, exec->shell->tree);
+	ms_listfree(&exec->fds, fdsfree);
+	ms_sorterfree(exec, exec->shell->tree);
 	free(exec);
 	return (err);
 }
@@ -40,8 +28,8 @@ int	exit_execfree(t_execs *exec, int err)
 	dup2(exec->stdcopies[1], 1);
 	close(exec->stdcopies[0]);
 	close(exec->stdcopies[1]);
-	ft_listfree(&exec->fds, fdsfree);
-	ft_sorterfree(exec, exec->shell->tree);
+	ms_listfree(&exec->fds, fdsfree);
+	ms_sorterfree(exec, exec->shell->tree);
 	free(exec->buff);
 	arrayfree(&shell->env);
 	free(shell);

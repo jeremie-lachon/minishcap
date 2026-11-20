@@ -1,25 +1,13 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   mainexec.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dakojic <dakojic@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/24 21:48:08 by snek              #+#    #+#             */
-/*   Updated: 2024/11/29 22:03:46 by dakojic          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
-int	ft_expandcmd(t_execs *exec, t_cmd *cmd)
+int	ms_expandcmd(t_execs *exec, t_cmd *cmd)
 {
 	t_execcmd	*command;
 
 	if (!cmd)
 		return (0);
 	if (cmd->type == REDIR || cmd->type == HERE)
-		return (ft_expandcmd(exec, ((t_redircmd *)cmd)->cmd));
+		return (ms_expandcmd(exec, ((t_redircmd *)cmd)->cmd));
 	else if (cmd->type == EXEC)
 	{
 		command = (t_execcmd *)cmd;
@@ -38,17 +26,17 @@ int	executer(t_shell *shell, int err, char *buff)
 
 	if (!shell || !shell->tree)
 		return (err);
-	exec = ft_calloc(sizeof(t_execs), 1);
+	exec = ms_calloc(sizeof(t_execs), 1);
 	exec->shell = shell;
 	exec->fds = 0;
 	exec->ret = err;
 	exec->buff = buff;
 	exec->stdcopies[0] = dup(0);
 	exec->stdcopies[1] = dup(1);
-	err = ft_expandcmd(exec, shell->tree);
+	err = ms_expandcmd(exec, shell->tree);
 	if (err)
 		return (execfree(exec), err);
-	err = ft_sorter(exec, exec->shell->tree);
+	err = ms_sorter(exec, exec->shell->tree);
 	if (err != 1)
 		execfree(exec);
 	return (err);

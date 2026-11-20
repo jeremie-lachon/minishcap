@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_unset.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dakojic <dakojic@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/21 12:01:53 by dakojic           #+#    #+#             */
-/*   Updated: 2024/12/02 14:45:03 by dakojic          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 // unset with no options
@@ -35,7 +23,7 @@ static char	**unset_env(char ***str, int skip)
 			i++;
 			continue ;
 		}
-		copy[j++] = ft_strdup((*str)[i++]);
+		copy[j++] = ms_strdup((*str)[i++]);
 	}
 	copy[j] = NULL;
 	return (copy);
@@ -53,7 +41,7 @@ static int	envcheck(char *path, char *env, int size)
 	return (0);
 }
 
-int	ft_unset2(char **cmd, char ***env, int j, int i)
+int	ms_unset2(char **cmd, char ***env, int j, int i)
 {
 	int		size;
 	char	**cpy;
@@ -61,7 +49,7 @@ int	ft_unset2(char **cmd, char ***env, int j, int i)
 	while (cmd[++j])
 	{
 		i = -1;
-		size = ft_strlen(cmd[j]);
+		size = ms_strlen(cmd[j]);
 		while ((*env)[++i])
 		{
 			if (!envcheck(cmd[j], (*env)[i], size))
@@ -82,7 +70,7 @@ int	ft_unset2(char **cmd, char ***env, int j, int i)
 	return (0);
 }
 
-int	ft_unset(t_execs *execs)
+int	ms_unset(t_execs *execs)
 {
 	int			j;
 	t_execcmd	*cmd;
@@ -95,7 +83,7 @@ int	ft_unset(t_execs *execs)
 		cmd->args = 0;
 		return (0);
 	}
-	j = ft_unset2(cmd->args, &execs->shell->env, j, 0);
+	j = ms_unset2(cmd->args, &execs->shell->env, j, 0);
 	arrayfree(&cmd->args);
 	cmd->args = 0;
 	return (j);
@@ -122,7 +110,7 @@ int	ft_unset(t_execs *execs)
 //     cmd[1] = strdup("DUMDUM");
 //     cmd[2] = strdup("PATH");
 //     cmd[3] = NULL;
-//     ft_unset(&cmd, &env);
+//     ms_unset(&cmd, &env);
 //     i = 0;
 
 //     while(env[i])

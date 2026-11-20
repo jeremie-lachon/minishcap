@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parsing_heredoc.c                                  :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dakojic <dakojic@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/27 11:24:44 by dakojic           #+#    #+#             */
-/*   Updated: 2024/11/25 19:33:00 by dakojic          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 void	quote_remove(int *quote, char *str)
@@ -44,6 +32,6 @@ int	init_heredoc(t_lexer *lex, t_shell **shell)
 		return (free(node), 1);
 	node->stored = 0;
 	node->next = NULL;
-	ft_pipeaddback(shell, node);
+	ms_pipeaddback(shell, node);
 	return (0);
 }

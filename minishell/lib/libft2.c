@@ -1,18 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   libft2.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dakojic <dakojic@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/28 13:10:54 by dakojic           #+#    #+#             */
-/*   Updated: 2024/11/29 23:40:44 by dakojic          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
-char	*ft_strchr(char *s, char c)
+char	*ms_strchr(char *s, char c)
 {
 	while (*s)
 	{
@@ -23,7 +11,7 @@ char	*ft_strchr(char *s, char c)
 	return (0);
 }
 
-int	ft_strlen(const char *s)
+int	ms_strlen(const char *s)
 {
 	int	i;
 
@@ -33,7 +21,7 @@ int	ft_strlen(const char *s)
 	return (i);
 }
 
-int	ft_isalpha(int c)
+int	ms_isalpha(int c)
 {
 	return ((c >= 65 && c <= 90) || (c >= 97 && c <= 122));
 }

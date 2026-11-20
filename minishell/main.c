@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dakojic <dakojic@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/19 15:21:26 by jla-chon          #+#    #+#             */
-/*   Updated: 2024/12/02 15:11:07 by dakojic          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 int	g_bigsignal;
@@ -20,13 +8,13 @@ static char	**dupenv(char **ev)
 	int		i;
 
 	if (!ev)
-		return (ft_calloc(1, sizeof(char *)));
+		return (ms_calloc(1, sizeof(char *)));
 	i = 0;
 	while (ev[i])
 		i++;
-	env = ft_calloc(sizeof(char *), i + 1);
+	env = ms_calloc(sizeof(char *), i + 1);
 	while (i--)
-		env[i] = ft_strdup(ev[i]);
+		env[i] = ms_strdup(ev[i]);
 	return (env);
 }
 
@@ -34,7 +22,7 @@ static t_shell	*fillshell(char **ev)
 {
 	t_shell	*shell;
 
-	shell = ft_calloc(sizeof(t_shell), 1);
+	shell = ms_calloc(sizeof(t_shell), 1);
 	if (!shell)
 		return (0);
 	shell->env = dupenv(ev);
